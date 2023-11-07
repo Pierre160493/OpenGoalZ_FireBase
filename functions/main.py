@@ -1,13 +1,15 @@
-# Welcome to Cloud Functions for Firebase for Python!
-# To get started, simply uncomment the below code or create your own.
+
 # Deploy with `firebase deploy`
 
-from firebase_functions import https_fn
+import sys
+from pathlib import Path
 from firebase_admin import initialize_app
 
+sys.path.insert(0, Path(__file__).parent.as_posix()) #Need it to import correctly the following packages otherwise we get an: ModuleNotFoundError: No module named 'test' (https://github.com/firebase/firebase-functions-python/issues/92)
+
+# from OpenGoalZ_Functions.foo import * # Tests default functions
+from OpenGoalZ_Functions.add_to_name_generator import add_to_name_generator # Add name in the tables used for generating random player names
+# http://127.0.0.1:5001/openhattrick/us-central1/add_to_name_generator/?Country=France&FirstName=Pierre&LastName=Granger&Position=CB
+from OpenGoalZ_Functions.create_club import *
+
 initialize_app()
-
-
-@https_fn.on_request()
-def on_request_example(req: https_fn.Request) -> https_fn.Response:
-    return https_fn.Response("Hello world!")
