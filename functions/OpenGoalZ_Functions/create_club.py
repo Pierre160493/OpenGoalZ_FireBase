@@ -45,6 +45,8 @@ def createClub(req: https_fn.Request) -> https_fn.Response:
         doc_ref = firestore_client.collection(strCollection1).document(strDocument1).collection(strCollection2)
         docs = doc_ref.get()
         n_docs = len([doc for doc in docs])
+        if n_docs == 0:
+            return https_fn.Response(f"Oups... Club name is not given as input and no name generator is defined for Country: [{strDocument1}]", status=400)
         # return https_fn.Response(f"Oups... n_docs [{n_docs}] doesn't exist yet", status=400)
         while NameClub is None:
             random_index = random.randint(0, n_docs - 1)
